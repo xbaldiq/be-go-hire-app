@@ -2,9 +2,10 @@ const model = require('../Models/engineer');
 const form = require('../Helpers/form');
 
 module.exports = {
-  getAllEngineer: (_, res) => {
+  getAllEngineer: (req, res) => {
+    const { params, query } = req;
     model
-      .getAllEngineer()
+      .getAllEngineer(query)
       .then(response => {
         //resolve
         form.success(res, response);
@@ -16,7 +17,7 @@ module.exports = {
   },
   postEngineer: (req, res) => {
     const { body } = req;
-    console.log(body)
+    // console.log('isibody', body);
     model
       .postEngineer(body)
       .then(response => {
@@ -26,8 +27,8 @@ module.exports = {
           description: body.description,
           location: body.location,
           dateofbirth: body.dateofbirth,
-          datecreated: body.datecreated,
-          dateupdated: body.dateupdated,
+          datecreated: Date.now().toString,
+          dateupdated: body.dateupdated
         };
         form.success(res, data);
       })
@@ -37,33 +38,113 @@ module.exports = {
       );
   },
   patchEngineer: (req, res) => {
-    const {params, query} = req;
+    const { params, query } = req;
     // res.json ({
     //   params,
     //   query,
     // });
     model
-      .patchEngineer (query, params)
-      .then (response => {
+      .patchEngineer(query, params)
+      .then(response => {
         //resolve
-        res.json (response);
+        res.json(response);
       })
-      .catch (err =>
+      .catch(err =>
         //reject
-        console.log (err)
+        console.log(err)
       );
   },
   deleteEngineer: (req, res) => {
-    const {params, query} = req;
+    const { params } = req;
     model
       .deleteEngineer(params)
-      .then (response => {
+      .then(response => {
         //resolve
-        res.json (response);
+        res.json(response);
       })
-      .catch (err =>
+      .catch(err =>
         //reject
-        console.log (err)
+        console.log(err)
+      );
+  },
+  postEngineerSkill: (req, res) => {
+    const { body, params } = req;
+    model
+      .postEngineerSkill(body, params)
+      .then(response => {
+        //resolve
+        res.json(response);
+      })
+      .catch(err =>
+        //reject
+        console.log(err)
+      );
+  },
+  patchEngineerSkill: (req, res) => {
+    const { body, params } = req;
+    model
+      .patchEngineerSkill(body, params)
+      .then(response => {
+        //resolve
+        res.json(response);
+      })
+      .catch(err =>
+        //reject
+        console.log(err)
+      );
+  },
+  deleteEngineerSkill: (req, res) => {
+    const { params } = req;
+    model
+      .deleteEngineerSkill(params)
+      .then(response => {
+        //resolve
+        res.json(response);
+      })
+      .catch(err =>
+        //reject
+        console.log(err)
+      );
+  },
+  postEngineerShowcase: (req, res) => {
+    const { body, params } = req;
+    // console.log(body)
+    // console.log(params)
+    model
+      .postEngineerShowcase(body, params)
+      .then(response => {
+        //resolve
+        res.json(response);
+      })
+      .catch(err =>
+        //reject
+        console.log(err)
+      );
+  },
+  patchEngineerShowcase: (req, res) => {
+    const { body, params } = req;
+    model
+      .patchEngineerShowcase(body, params)
+      .then(response => {
+        //resolve
+        res.json(response);
+      })
+      .catch(err =>
+        //reject
+        console.log(err)
+      );
+  },
+  deleteEngineerShowcase: (req, res) => {
+    const { params } = req;
+    model
+      .deleteEngineerShowcase(params)
+      .then(response => {
+        //resolve
+        res.json(response);
+      })
+      .catch(err =>
+        //reject
+        console.log(err)
       );
   }
 };
