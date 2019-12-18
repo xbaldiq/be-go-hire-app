@@ -4,9 +4,6 @@ module.exports = {
   getAllEngineer: (query, params) => {
     let filterKey = 1;
     let filterVal = '';
-    const filterName = query.name;
-    const filterLocation = query.name;
-    const filterSkill = query.skill;
 
     const sort = query.sort || 'id';
     const order = query.order || 'asc';
@@ -15,7 +12,7 @@ module.exports = {
 
     let offset = limit * page - limit;
 
-    console.log(query);
+    // console.log(query);
     if (query.name) {
       filterKey = 'name';
       filterVal = query.name;

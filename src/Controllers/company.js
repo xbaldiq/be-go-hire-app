@@ -8,6 +8,7 @@ module.exports = {
       .then(response => {
         //resolve
         form.success(res, response);
+        console.log('response :', response);
       })
       .catch(err => {
         //reject
@@ -35,33 +36,33 @@ module.exports = {
       );
   },
   patchCompany: (req, res) => {
-    const {params, query} = req;
+    const { params, query } = req;
     // res.json ({
     //   params,
     //   query,
     // });
     model
-      .patchCompany (query, params)
-      .then (response => {
+      .patchCompany(query, params)
+      .then(response => {
         //resolve
-        res.json (response);
+        res.json(response);
       })
-      .catch (err =>
+      .catch(err =>
         //reject
-        console.log (err)
+        console.log(err)
       );
   },
   deleteCompany: (req, res) => {
-    const {params, query} = req;
+    const { params, query } = req;
     model
       .deleteCompany(params)
-      .then (response => {
+      .then(response => {
         //resolve
-        res.json (response);
+        res.json(response);
       })
-      .catch (err =>
+      .catch(err =>
         //reject
-        console.log (err)
+        console.log(err)
       );
   }
 };

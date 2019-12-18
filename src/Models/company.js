@@ -14,7 +14,8 @@ module.exports = {
   postCompany: body => {
     return new Promise((resolve, reject) => {
       let value = [body.name, body.logo, body.location, body.description];
-      let sql = 'INSERT INTO company (name,logo,location,description) VALUES ( ? )';
+      let sql =
+        'INSERT INTO company (name,logo,location,description) VALUES ( ? )';
       console.log(value);
       db.query(sql, [value], (err, response) => {
         if (!err) {
@@ -26,35 +27,31 @@ module.exports = {
     });
   },
   patchCompany: (query, params) => {
-    return new Promise ((resolve, reject) => {
-      // console.log(`query= ${query}, params= ${params}`)
-      console.log(query, params)
-      db.query (
+    return new Promise((resolve, reject) => {
+      db.query(
         'UPDATE company SET ? WHERE ?',
         [query, params],
         (err, response) => {
           if (!err) {
-            resolve (response);
+            resolve(response);
           } else {
-            reject (err);
+            reject(err);
           }
         }
       );
     });
   },
-  deleteCompany: (params) => {
+  deleteCompany: params => {
     return new Promise((resolve, reject) => {
-      console.log(`ID yang dihapus: ${params}`)
-      let sql = 'DELETE FROM company WHERE ?'
-      db.query(sql, [params], 
-        (err, response) => {
-          if (!err) {
-            resolve (response);
-          } else {
-            reject (err);
-          }
+      console.log(`ID yang dihapus: ${params}`);
+      let sql = 'DELETE FROM company WHERE ?';
+      db.query(sql, [params], (err, response) => {
+        if (!err) {
+          resolve(response);
+        } else {
+          reject(err);
         }
-      )
-    })
+      });
+    });
   }
 };
