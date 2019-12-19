@@ -1,10 +1,13 @@
-const model = require('../Models/engineer');
+const delEng = require('../Models/engineer/deleteEngineer');
+const getEng = require('../Models/engineer/getEngineer');
+const patchEng = require('../Models/engineer/patchEngineer');
+const postEng = require('../Models/engineer/postEngineer');
 const form = require('../Helpers/form');
 
 module.exports = {
   getAllEngineer: (req, res) => {
     const { params, query } = req;
-    model
+    getEng
       .getAllEngineer(params, query)
       .then(response => {
         //resolve
@@ -17,8 +20,8 @@ module.exports = {
   },
   getEngineer: (req, res) => {
     const { params, query } = req;
-    model
-      .getEngineer(params, query)
+    getEng
+      .getOneEngineer(params, query)
       .then(response => {
         //resolve
         form.success(res, response);
@@ -31,7 +34,7 @@ module.exports = {
   postEngineer: (req, res) => {
     const { body } = req;
     // console.log('isibody', body);
-    model
+    postEng
       .postEngineer(body)
       .then(response => {
         const data = {
@@ -52,7 +55,7 @@ module.exports = {
   },
   patchEngineer: (req, res) => {
     const { query, params } = req;
-    model
+    patchEng
       .patchEngineer(query, params)
       .then(response => {
         //resolve
@@ -65,7 +68,7 @@ module.exports = {
   },
   deleteEngineer: (req, res) => {
     const { params } = req;
-    model
+    delEng
       .deleteEngineer(params)
       .then(response => {
         //resolve

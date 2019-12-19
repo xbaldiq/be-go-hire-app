@@ -1,9 +1,13 @@
-const model = require('../Models/company');
+const del = require('../Models/company/deleteCompany');
+const get = require('../Models/company/getCompany');
+const patch = require('../Models/company/patchCompany');
+const post = require('../Models/company/postCompany');
+// const model = require('../Models/companyBackup');
 const form = require('../Helpers/form');
 
 module.exports = {
   getAllCompany: (_, res) => {
-    model
+    get
       .getAllCompany()
       .then(response => {
         //resolve
@@ -16,7 +20,7 @@ module.exports = {
   },
   postCompany: (req, res) => {
     const { body } = req;
-    model
+    post
       .postCompany(body)
       .then(response => {
         // resolve
@@ -36,7 +40,7 @@ module.exports = {
   },
   patchCompany: (req, res) => {
     const { params, query } = req;
-    model
+    patch
       .patchCompany(query, params)
       .then(response => {
         //resolve
@@ -49,7 +53,7 @@ module.exports = {
   },
   deleteCompany: (req, res) => {
     const { params, query } = req;
-    model
+    del
       .deleteCompany(params)
       .then(response => {
         //resolve

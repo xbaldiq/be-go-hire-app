@@ -1,5 +1,4 @@
 const db = require('../Configs/db');
-const mysql = require('mysql');
 module.exports = {
   getAllEngineer: (params, query) => {
     let filterKey = 1;
@@ -88,8 +87,6 @@ module.exports = {
         body.dateupdated
       ];
 
-      // [A-Z][a-zA-Z][^#&<>\"~;$^%{}?]{1,20}$
-
       let sql =
         'INSERT INTO engineer (name,description,location,dateofbirth,datecreated,dateupdated) VALUES ( ? )';
       db.query(sql, [value], (err, response) => {
@@ -121,10 +118,6 @@ module.exports = {
   },
   deleteEngineer: params => {
     return new Promise((resolve, reject) => {
-      //   let sql = 'DELETE FROM engineer WHERE id=?';
-      //   let value = [params.id];
-      console.log(params);
-
       let sql = 'DELETE FROM engineer WHERE ?';
       let value = [params];
       db.query(sql, value, (err, response) => {
