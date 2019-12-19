@@ -4,13 +4,13 @@ const jwt = require('jsonwebtoken');
 
 const Router = express.Router();
 
-Router.get('/', authCompany, controller.getAllCompany);
-Router.post('/', authCompany, controller.postCompany);
-Router.patch('/:id', authCompany, controller.patchCompany);
-Router.delete('/:id', authCompany, controller.deleteCompany);
+Router.get('/', auth, controller.getAllCompany);
+Router.post('/', auth, controller.postCompany);
+Router.patch('/:id', controller.patchCompany);
+Router.delete('/:id', auth, controller.deleteCompany);
 module.exports = Router;
 
-function authCompany(req, res, next) {
+function auth(req, res, next) {
   const authHeader = req.headers['authorization'];
   const tokenUser = authHeader && authHeader.split(' ')[1];
   if (tokenUser == null) {

@@ -6,11 +6,18 @@ module.exports = {
     model
       .registerUser(body, params)
       .then(response => {
-        //resolve
-        form.success(res, response);
+        if(response == 'loginInvalidFormat'){
+          console.log(response)
+          form.failed(res, response, 400);
+        } 
+        else if(response == 403){
+          form.usernameExist(res)
+        }
+        else{
+          form.success(res, response);
+        }
       })
       .catch(err => {
-        //reject
         console.log(err);
       });
   }

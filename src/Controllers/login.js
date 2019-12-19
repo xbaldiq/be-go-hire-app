@@ -6,8 +6,12 @@ module.exports = {
     model
       .loginUser(body, params)
       .then(response => {
-        //resolve
-        form.success(res, response);
+        if(response.invalidPassword){
+          form.invalidPassword(res)
+        }
+        else{
+          form.success(res, response);
+        }
       })
       .catch(err => {
         //reject

@@ -8,7 +8,6 @@ module.exports = {
       .then(response => {
         //resolve
         form.success(res, response);
-        console.log('response :', response);
       })
       .catch(err => {
         //reject
@@ -37,10 +36,6 @@ module.exports = {
   },
   patchCompany: (req, res) => {
     const { params, query } = req;
-    // res.json ({
-    //   params,
-    //   query,
-    // });
     model
       .patchCompany(query, params)
       .then(response => {

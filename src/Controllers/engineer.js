@@ -5,7 +5,20 @@ module.exports = {
   getAllEngineer: (req, res) => {
     const { params, query } = req;
     model
-      .getAllEngineer(query)
+      .getAllEngineer(params, query)
+      .then(response => {
+        //resolve
+        form.success(res, response);
+      })
+      .catch(err => {
+        //reject
+        console.log(err);
+      });
+  },
+  getEngineer: (req, res) => {
+    const { params, query } = req;
+    model
+      .getEngineer(params, query)
       .then(response => {
         //resolve
         form.success(res, response);
@@ -27,7 +40,7 @@ module.exports = {
           description: body.description,
           location: body.location,
           dateofbirth: body.dateofbirth,
-          datecreated: Date.now().toString,
+          datecreated: new Date(),
           dateupdated: body.dateupdated
         };
         form.success(res, data);
@@ -38,11 +51,7 @@ module.exports = {
       );
   },
   patchEngineer: (req, res) => {
-    const { params, query } = req;
-    // res.json ({
-    //   params,
-    //   query,
-    // });
+    const { query, params } = req;
     model
       .patchEngineer(query, params)
       .then(response => {

@@ -1,7 +1,7 @@
 const db = require('../Configs/db');
 const mysql = require('mysql');
 module.exports = {
-  getAllEngineer: (query, params) => {
+  getAllEngineer: (params, query) => {
     let filterKey = 1;
     let filterVal = '';
 
@@ -58,26 +58,40 @@ module.exports = {
       });
     });
   },
+  getEngineer: (params, query) => {
+    const idEngineer = params.id;
+    return new Promise((resolve, reject) => {
+      let sql = `
+        SELECT *
+        FROM engineer
+        WHERE id=${idEngineer}
+        `;
+      db.query(sql, (err, response) => {
+        if (!err) {
+          resolve(response);
+        } else {
+          reject(err);
+        }
+      });
+    });
+  },
   postEngineer: body => {
     return new Promise((resolve, reject) => {
-      const now = Date().toString;
+      const dateCreate = new Date();
+      // const now = Date().toString;
       let value = [
         body.name,
         body.description,
         body.location,
         body.dateofbirth,
-        body.datecreated,
+        dateCreate,
         body.dateupdated
       ];
+
+      // [A-Z][a-zA-Z][^#&<>\"~;$^%{}?]{1,20}$
+
       let sql =
         'INSERT INTO engineer (name,description,location,dateofbirth,datecreated,dateupdated) VALUES ( ? )';
-      // console.log(value[3]);
-      // console.log(value[4]);
-      // console.log(value[5]);
-
-      //   value[4]= SqlString.escape(NOW()");
-      //   console.log(SqlString.escape('NOW()'));
-      //   console.log({NOW()});
       db.query(sql, [value], (err, response) => {
         if (!err) {
           resolve(response);
@@ -92,8 +106,8 @@ module.exports = {
       // console.log(`query= ${query}, params= ${params}`)
       console.log('query = ', query);
       console.log('params = ', params);
-      db.query(
-        'UPDATE engineer SET ? WHERE ?',
+      const sql = 'UPDATE engineer SET ?, dateupdated=NOW() WHERE ?'
+      db.query(sql,
         [query, params],
         (err, response) => {
           if (!err) {
@@ -141,7 +155,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       console.log('params: ', params);
       console.log('body: ', body.skill);
-      let sql = `UPDATE skill SET skill_item = '${body.skill}' WHERE skill.id = ${params.id} AND skill.skill_id = ${params.skill_item_id}`;
+      let sql = `UPDATE skill SET skill_item = '${body.skill}' WHERE skill.id = ${params.id} AND skill.skill_no = ${params.skill_no}`;
       console.log(sql);
 
       db.query(sql, (err, response) => {
@@ -156,7 +170,7 @@ module.exports = {
   deleteEngineerSkill: (params) => {
     return new Promise((resolve, reject) => {
       console.log('params: ', params);  
-      let sql = `DELETE FROM skill WHERE id=${params.id} AND skill_id=${skill_item_id}`;
+      let sql = `DELETE FROM skill WHERE id=${params.id} AND skill_no=${params.skill_no}`;
       console.log(sql);
 
       db.query(sql, (err, response) => {
@@ -186,7 +200,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       console.log('params: ', params);
       console.log('body: ', body);
-      let sql = `UPDATE showcase SET showcase_item = '${body.showcase_item}' WHERE showcase.id = ${params.id} AND showcase.showcase_item_id = '${params.showcase_item_id}'`;
+      let sql = `UPDATE showcase SET showcase_item = '${body.showcase_item}' WHERE showcase.id = ${params.id} AND showcase.showcase_no = '${params.showcase_no}'`;
       console.log(sql);
       db.query(sql, (err, response) => {
         if (!err) {
@@ -200,7 +214,7 @@ module.exports = {
   deleteEngineerShowcase: (params) => {
     return new Promise((resolve, reject) => {
       console.log('params: ', params);  
-      let sql = `DELETE FROM showcase WHERE id=${params.id} AND showcase_item_id=${params.showcase_item_id}`;
+      let sql = `DELETE FROM showcase WHERE id=${params.id} AND showcase_no=${params.showcase_no}`;
       console.log(sql);
 
       db.query(sql, (err, response) => {
