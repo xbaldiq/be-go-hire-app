@@ -6,7 +6,7 @@ module.exports = {
       // console.log(`query= ${query}, params= ${params}`)
       console.log('query = ', query);
       console.log('params = ', params);
-      const sql = 'UPDATE engineer SET ?, dateupdated=NOW() WHERE ?';
+      const sql = 'UPDATE engineer SET ?, dateupdated=NOW() WHERE id=?';
       db.query(sql, [query, params], (err, response) => {
         if (!err) {
           resolve(response);

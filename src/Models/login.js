@@ -18,27 +18,30 @@ module.exports = {
       db.query(sql, (err, response) => {
         if (!err) {
           if (response.length) {
+            console.log(response)
             // Get password from query result
             const dbPassword = response[0].password;
             
+            // Check password
             if (bcrypt.compareSync(password, dbPassword)) {
               console.log('Authentikasi berhasil');
-              const user = { 
+              const payload = { 
+                id: response[0].id,
                 name: username,
-                pass: password
+                user_type
                };
 
               // Get Token
               if (user_type == 'company') {
                 const accessToken = jwt.sign(
-                  user,
+                  payload,
                   process.env.ACCESS_TOKEN_COMPANY
                 );
                 console.log('accessToken: ', accessToken);
                 response[0].token = accessToken;
               } else if (user_type == 'engineer') {
                 const accessToken = jwt.sign(
-                  user,
+                  payload,
                   process.env.ACCESS_TOKEN_ENGINEER
                   //require('crypto').randomBytes(64).toString('hex')
                 );

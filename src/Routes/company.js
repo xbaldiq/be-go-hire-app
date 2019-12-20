@@ -1,28 +1,13 @@
 const express = require('express');
 const controller = require('../Controllers/company');
-const jwt = require('jsonwebtoken');
+const jwtAuth = require('../Helpers/jwtAuthentication/auth');
 
 const Router = express.Router();
 
-Router.get('/', auth, controller.getAllCompany);
-Router.post('/', auth, controller.postCompany);
-Router.patch('/:id', controller.patchCompany);
-Router.delete('/:id', auth, controller.deleteCompany);
+Router.get('/', jwtAuth.authCompanyCRUD, controller.getAllCompany);
+Router.post('/', jwtAuth.authCompanyCRUD, controller.postCompany);
+Router.patch('/:id', jwtAuth.authCompanyCRUD, controller.patchCompany);
+Router.delete('/:id', jwtAuth.authCompanyCRUD, controller.deleteCompany);
+
 module.exports = Router;
 
-function auth(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  const tokenUser = authHeader && authHeader.split(' ')[1];
-  if (tokenUser == null) {
-    console.log('Token empty, Not authorized');
-    return res.sendStatus(401);
-  }
-
-  jwt.verify(tokenUser, process.env.ACCESS_TOKEN_COMPANY, (err, user) => {
-    console.log(err);
-    if (err) return res.sendStatus(403);
-    console.log('user: ', user);
-    req.user = user;
-    next();
-  });
-}

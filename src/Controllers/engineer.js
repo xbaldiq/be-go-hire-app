@@ -7,33 +7,40 @@ const form = require('../Helpers/form');
 module.exports = {
   getAllEngineer: (req, res) => {
     const { params, query } = req;
-    getEng
+
+    if( req.user.user_type == 'company' ){
+      getEng
       .getAllEngineer(params, query)
       .then(response => {
-        //resolve
         form.success(res, response);
       })
       .catch(err => {
-        //reject
         console.log(err);
       });
+    } else if (req.user.user_type == 'engineer') {
+      getEng
+      .getAllEngineer(params, query)
+      .then(response => {
+        form.success(res, response.filter(result => result.id === req.user.id));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    }
   },
   getEngineer: (req, res) => {
     const { params, query } = req;
     getEng
       .getOneEngineer(params, query)
       .then(response => {
-        //resolve
         form.success(res, response);
       })
       .catch(err => {
-        //reject
         console.log(err);
       });
   },
   postEngineer: (req, res) => {
     const { body } = req;
-    // console.log('isibody', body);
     postEng
       .postEngineer(body)
       .then(response => {
@@ -49,20 +56,18 @@ module.exports = {
         form.success(res, data);
       })
       .catch(err =>
-        // reject
         console.log(err)
       );
   },
   patchEngineer: (req, res) => {
     const { query, params } = req;
+    console.log(req.user)
     patchEng
-      .patchEngineer(query, params)
+      .patchEngineer(query, req.user.id)
       .then(response => {
-        //resolve
         res.json(response);
       })
       .catch(err =>
-        //reject
         console.log(err)
       );
   },
@@ -71,11 +76,9 @@ module.exports = {
     delEng
       .deleteEngineer(params)
       .then(response => {
-        //resolve
         res.json(response);
       })
       .catch(err =>
-        //reject
         console.log(err)
       );
   },
@@ -84,11 +87,9 @@ module.exports = {
     model
       .postEngineerSkill(body, params)
       .then(response => {
-        //resolve
         res.json(response);
       })
       .catch(err =>
-        //reject
         console.log(err)
       );
   },
@@ -97,11 +98,9 @@ module.exports = {
     model
       .patchEngineerSkill(body, params)
       .then(response => {
-        //resolve
         res.json(response);
       })
       .catch(err =>
-        //reject
         console.log(err)
       );
   },
@@ -110,26 +109,20 @@ module.exports = {
     model
       .deleteEngineerSkill(params)
       .then(response => {
-        //resolve
         res.json(response);
       })
       .catch(err =>
-        //reject
         console.log(err)
       );
   },
   postEngineerShowcase: (req, res) => {
     const { body, params } = req;
-    // console.log(body)
-    // console.log(params)
     model
       .postEngineerShowcase(body, params)
       .then(response => {
-        //resolve
         res.json(response);
       })
       .catch(err =>
-        //reject
         console.log(err)
       );
   },
@@ -138,11 +131,9 @@ module.exports = {
     model
       .patchEngineerShowcase(body, params)
       .then(response => {
-        //resolve
         res.json(response);
       })
       .catch(err =>
-        //reject
         console.log(err)
       );
   },
@@ -151,11 +142,9 @@ module.exports = {
     model
       .deleteEngineerShowcase(params)
       .then(response => {
-        //resolve
         res.json(response);
       })
       .catch(err =>
-        //reject
         console.log(err)
       );
   }

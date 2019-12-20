@@ -7,7 +7,7 @@ module.exports = {
 
     const sort = query.sort || 'id';
     const order = query.order || 'asc';
-    const limit = query.limit || 5;
+    const limit = query.limit || 50;
     const page = query.page || 1;
 
     let offset = limit * page - limit;
@@ -59,12 +59,12 @@ module.exports = {
           OFFSET ${offset}
           `;
 
-      //and skill_item LIKE '%php%'
-
-      console.log('query sql: ', sql);
+      // console.log('query sql: ', sql);
 
       db.query(sql, (err, response) => {
         if (!err) {
+          // console.log('mendapatkan response')
+          // console.log(response)
           resolve(response);
         } else {
           reject(err);
@@ -72,7 +72,7 @@ module.exports = {
       });
     });
   },
-  getOneEngineer: (params, query) => {
+  getOneEngineer: params => {
     const idEngineer = params.id;
     return new Promise((resolve, reject) => {
       let sql = `
