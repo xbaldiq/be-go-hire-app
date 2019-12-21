@@ -5,6 +5,18 @@ A Hiring partner app for company scouting and hiring an available Engineer based
 
 ---
 
+## Feature
+- Crud Company
+- Crud Engineer
+- Register and Login user
+- Sort and filter engineer with multiple parameter
+- Engineer Pagination
+- Username and password validation (regex)
+- Password Encryption (base64)
+- Route Authorization
+    -  Rescricted Data read (Based on token type)
+    -  Rescricted Update Data Engineer
+
 #### Starting App
 ```js
 npm run backend
