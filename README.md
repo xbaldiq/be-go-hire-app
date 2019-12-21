@@ -12,12 +12,21 @@ npm run backend
 ---
 ## APP Route
 
+## How to use
+1. Register as Company/Engineer
+2. Login and get Token
+3. Input Bearer Token in Authorization header in Postman
+4. Enter desired route
+
 ##### Company Route (Required company token)
 Get All Engineer
 ```
-route               : /engineer/
-route with sort     : /engineer/?id=asc
-route with filter   : /engineer/?name=iqbal
+route                 : /engineer/
+route with sort       : /engineer/?id=asc
+route with limit      : /engineer/?limit=20
+route with filter     : /engineer/?name=iqbal
+route with pagination : /engineer/?page=1
+route with combined   : /engineer/?sort=id&order=asc&limit=20&page=1&name=iqbal&skill=php
 ``` 
 Get Individual Engineer
 ```js

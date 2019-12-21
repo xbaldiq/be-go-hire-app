@@ -11,11 +11,10 @@ module.exports = {
       const username = body.username;
       const password = body.password;
 
-      // validation.checkUsername(username)
-
       let sql = `SELECT * FROM user WHERE username = '${username}' AND user_type= '${user_type}'`;
 
       db.query(sql, (err, response) => {
+        console.log(response)
         if (!err) {
           if (response.length) {
             console.log(response)
@@ -24,14 +23,15 @@ module.exports = {
             
             // Check password
             if (bcrypt.compareSync(password, dbPassword)) {
-              console.log('Authentikasi berhasil');
+              console.log('Authentication Success');
               const payload = { 
                 id: response[0].id,
                 name: username,
                 user_type
                };
 
-              // Get Token
+              // Get Token based on user_type
+              // SecretKey generated with require('crypto').randomBytes(64).toString('hex')
               if (user_type == 'company') {
                 const accessToken = jwt.sign(
                   payload,
@@ -43,21 +43,20 @@ module.exports = {
                 const accessToken = jwt.sign(
                   payload,
                   process.env.ACCESS_TOKEN_ENGINEER
-                  //require('crypto').randomBytes(64).toString('hex')
                 );
                 console.log('accessToken: ', accessToken);
                 response[0].token = accessToken;
               }
               resolve(response);
             } else {
-              // Password Salah
               response.invalidPassword = 'Invalid Password'
               resolve(response);
-              // resolve(response);
             }
+          }else{
+            resolve(response.invalidUsername = 'Username not registered');
           }
         } else {
-          reject(err);
+          resolve(err);
         }
       });
     });
