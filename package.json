@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index",
-    "server": "nodemon index"
+    "backend": "nodemon index"
   },
   "author": "",
   "license": "ISC",
@@ -19,8 +19,7 @@
     "helmet": "^3.21.2",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
-    "mysql": "^2.17.1",
-    "sqlstring": "^2.3.1"
+    "mysql": "^2.17.1"
   },
   "devDependencies": {
     "morgan": "^1.9.1"

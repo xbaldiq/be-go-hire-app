@@ -4,12 +4,6 @@ const db = mysql.createConnection ({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-
-  // host: 'localhost',
-  // user: 'root',
-  // password: 'root',
-  // database: 'go-hire-app'
-
 });
 
 db.connect (err => {
