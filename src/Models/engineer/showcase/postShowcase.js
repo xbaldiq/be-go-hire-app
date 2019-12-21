@@ -1,8 +1,8 @@
 const db = require('../../../Configs/db');
 module.exports = {
-  postEngineerShowcase: (body, params) => {
+  postEngineerShowcase: (body, userId) => {
     return new Promise((resolve, reject) => {
-      const sql = `INSERT INTO showcase (id, showcase_item) VALUES (${params.id},'${body.showcase_item}')`;
+      const sql = `INSERT INTO showcase (id, showcase_no, showcase_item) VALUES (${userId}, '${body.showcase_no}','${body.showcase_item}')`;
 
       console.log(sql);
       db.query(sql, (err, response) => {

@@ -1,13 +1,10 @@
 const db = require('../../Configs/db');
 
 module.exports = {
-  patchEngineer: (query, params) => {
+  patchEngineer: (body, userId) => {
     return new Promise((resolve, reject) => {
-      // console.log(`query= ${query}, params= ${params}`)
-      console.log('query = ', query);
-      console.log('params = ', params);
       const sql = 'UPDATE engineer SET ?, dateupdated=NOW() WHERE id=?';
-      db.query(sql, [query, params], (err, response) => {
+      db.query(sql, [body, userId], (err, response) => {
         if (!err) {
           resolve(response);
         } else {

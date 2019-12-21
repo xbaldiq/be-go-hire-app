@@ -5,7 +5,7 @@ module.exports = {
   authGetEngineer: (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const tokenUser = authHeader && authHeader.split(' ')[1];
-    let login = 0;
+    
     if (tokenUser == null) {
       console.log('Token empty, Not authorized');
       return res.sendStatus(401);
@@ -52,6 +52,7 @@ module.exports = {
     jwt.verify(tokenUser, process.env.ACCESS_TOKEN_ENGINEER, (err, payload) => {
       if (err) return res.sendStatus(403);
       req.user = payload;
+      console.log(payload)
       next();
     });
   }

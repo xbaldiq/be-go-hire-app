@@ -1,10 +1,8 @@
 const db = require('../../../Configs/db');
 module.exports = {
-  postEngineerSkill: (body, params) => {
+  postEngineerSkill: (body, userId) => {
     return new Promise((resolve, reject) => {
-      console.log('params: ', params.id);
-      console.log('body: ', body.skill);
-      let sql = `INSERT INTO skill ( id, skill_item) VALUES (${params.id},'${body.skill}')`;
+      let sql = `INSERT INTO skill ( id, skill_no, skill_item) VALUES (${userId},  '${body.skill_no}', '${body.skill_item}')`;
       console.log(sql);
       db.query(sql, (err, response) => {
         if (!err) {

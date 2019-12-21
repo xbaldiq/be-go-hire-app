@@ -1,14 +1,25 @@
+// Engineer
 const delEng = require('../Models/engineer/deleteEngineer');
 const getEng = require('../Models/engineer/getEngineer');
 const patchEng = require('../Models/engineer/patchEngineer');
 const postEng = require('../Models/engineer/postEngineer');
+
+// Skill
+const patchEngSkill = require('../Models/engineer/skill/patchSkill');
+const postEngSkill = require('../Models/engineer/skill/postSkill');
+const delEngSkill = require('../Models/engineer/skill/deleteSkill');
+
+// Showcase
+const patchEngSC = require('../Models/engineer/showcase/patchShowcase');
+const postEngSC = require('../Models/engineer/showcase/postShowcase');
+const delEngSC = require('../Models/engineer/showcase/deleteShowcase');
+
 const form = require('../Helpers/form');
 
 module.exports = {
   getAllEngineer: (req, res) => {
-    const { params, query } = req;
-
-    if( req.user.user_type == 'company' ){
+    const { params, query, user } = req;
+    if( user.user_type == 'company' ){
       getEng
       .getAllEngineer(params, query)
       .then(response => {
@@ -17,7 +28,8 @@ module.exports = {
       .catch(err => {
         console.log(err);
       });
-    } else if (req.user.user_type == 'engineer') {
+    } else if (user.user_type == 'engineer') {
+      console.log('userId',user.id)
       getEng
       .getAllEngineer(params, query)
       .then(response => {
@@ -29,9 +41,9 @@ module.exports = {
     }
   },
   getEngineer: (req, res) => {
-    const { params, query } = req;
+    const { params } = req;
     getEng
-      .getOneEngineer(params, query)
+      .getOneEngineer(params)
       .then(response => {
         form.success(res, response);
       })
@@ -60,10 +72,10 @@ module.exports = {
       );
   },
   patchEngineer: (req, res) => {
-    const { query, params } = req;
-    console.log(req.user)
+    const { body, user } = req;
+    console.log('userId', user.id)
     patchEng
-      .patchEngineer(query, req.user.id)
+      .patchEngineer(body, req.user.id)
       .then(response => {
         res.json(response);
       })
@@ -72,9 +84,8 @@ module.exports = {
       );
   },
   deleteEngineer: (req, res) => {
-    const { params } = req;
     delEng
-      .deleteEngineer(params)
+      .deleteEngineer(req.params)
       .then(response => {
         res.json(response);
       })
@@ -83,20 +94,20 @@ module.exports = {
       );
   },
   postEngineerSkill: (req, res) => {
-    const { body, params } = req;
-    model
-      .postEngineerSkill(body, params)
+    const { body } = req;
+    postEngSkill
+      .postEngineerSkill(body, req.user.id)
       .then(response => {
-        res.json(response);
+        form.success(res,response.insert = body, 200,'Success Insert Skill');
       })
       .catch(err =>
         console.log(err)
       );
   },
   patchEngineerSkill: (req, res) => {
-    const { body, params } = req;
-    model
-      .patchEngineerSkill(body, params)
+    const { body } = req;
+    patchEngSkill
+      .patchEngineerSkill(body, req.user.id)
       .then(response => {
         res.json(response);
       })
@@ -105,9 +116,8 @@ module.exports = {
       );
   },
   deleteEngineerSkill: (req, res) => {
-    const { params } = req;
-    model
-      .deleteEngineerSkill(params)
+    delEngSkill
+      .deleteEngineerSkill(req.body, req.user.id)
       .then(response => {
         res.json(response);
       })
@@ -116,9 +126,9 @@ module.exports = {
       );
   },
   postEngineerShowcase: (req, res) => {
-    const { body, params } = req;
-    model
-      .postEngineerShowcase(body, params)
+    const { body } = req;
+    postEngSC
+      .postEngineerShowcase(body, req.user.id)
       .then(response => {
         res.json(response);
       })
@@ -127,9 +137,10 @@ module.exports = {
       );
   },
   patchEngineerShowcase: (req, res) => {
-    const { body, params } = req;
-    model
-      .patchEngineerShowcase(body, params)
+    const { body } = req;
+    console.log(body)
+    patchEngSC
+      .patchEngineerShowcase(body, req.user.id)
       .then(response => {
         res.json(response);
       })
@@ -138,9 +149,8 @@ module.exports = {
       );
   },
   deleteEngineerShowcase: (req, res) => {
-    const { params } = req;
-    model
-      .deleteEngineerShowcase(params)
+    delEngSC
+      .deleteEngineerShowcase(req.body, req.user.id)
       .then(response => {
         res.json(response);
       })

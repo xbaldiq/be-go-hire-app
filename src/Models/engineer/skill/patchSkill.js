@@ -1,11 +1,8 @@
 const db = require('../../../Configs/db');
 module.exports = {
-  patchEngineerSkill: (body, params) => {
+  patchEngineerSkill: (body, userId) => {
     return new Promise((resolve, reject) => {
-      console.log('params: ', params);
-      console.log('body: ', body.skill);
-      let sql = `UPDATE skill SET skill_item = '${body.skill}' WHERE skill.id = ${params.id} AND skill.skill_no = ${params.skill_no}`;
-      console.log(sql);
+      let sql = `UPDATE skill SET skill_item = '${body.skill_item}' WHERE skill.id = ${userId} AND skill.skill_no = ${body.skill_no}`;
 
       db.query(sql, (err, response) => {
         if (!err) {

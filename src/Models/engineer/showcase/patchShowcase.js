@@ -1,10 +1,8 @@
 const db = require('../../../Configs/db');
 module.exports = {
-  patchEngineerShowcase: (body, params) => {
+  patchEngineerShowcase: (body, userId) => {
     return new Promise((resolve, reject) => {
-      console.log('params: ', params);
-      console.log('body: ', body);
-      let sql = `UPDATE showcase SET showcase_item = '${body.showcase_item}' WHERE showcase.id = ${params.id} AND showcase.showcase_no = '${params.showcase_no}'`;
+      let sql = `UPDATE showcase SET showcase_item = '${body.showcase_item}' WHERE showcase.id = ${userId} AND showcase.showcase_no = '${body.showcase_no}'`;
       console.log(sql);
       db.query(sql, (err, response) => {
         if (!err) {

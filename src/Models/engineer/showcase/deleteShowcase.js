@@ -1,9 +1,8 @@
 const db = require('../../../Configs/db');
 module.exports = {
-  deleteEngineerShowcase: params => {
+  deleteEngineerShowcase: (body,userId) => {
     return new Promise((resolve, reject) => {
-      console.log('params: ', params);
-      let sql = `DELETE FROM showcase WHERE id=${params.id} AND showcase_no=${params.showcase_no}`;
+      let sql = `DELETE FROM showcase WHERE id=${userId} AND showcase_no=${body.showcase_no}`;
       console.log(sql);
 
       db.query(sql, (err, response) => {

@@ -20,6 +20,7 @@ module.exports = {
   },
   postCompany: (req, res) => {
     const { body } = req;
+    // console.log('body postCompany: ', req.body)
     post
       .postCompany(body)
       .then(response => {
@@ -39,20 +40,18 @@ module.exports = {
       );
   },
   patchCompany: (req, res) => {
-    const { params, query } = req;
+    const { params, body } = req;
     patch
-      .patchCompany(query, params)
+      .patchCompany(body, params)
       .then(response => {
-        //resolve
         res.json(response);
       })
       .catch(err =>
-        //reject
         console.log(err)
       );
   },
   deleteCompany: (req, res) => {
-    const { params, query } = req;
+    const { params } = req;
     del
       .deleteCompany(params)
       .then(response => {

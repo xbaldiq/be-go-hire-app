@@ -6,6 +6,7 @@ module.exports = {
       const dateCreate = new Date();
       // const now = Date().toString;
       let value = [
+        body.id,
         body.name,
         body.description,
         body.location,
@@ -17,7 +18,7 @@ module.exports = {
       // [A-Z][a-zA-Z][^#&<>\"~;$^%{}?]{1,20}$
 
       let sql =
-        'INSERT INTO engineer (name,description,location,dateofbirth,datecreated,dateupdated) VALUES ( ? )';
+        'INSERT INTO engineer (id,name,description,location,dateofbirth,datecreated,dateupdated) VALUES ( ? )';
       db.query(sql, [value], (err, response) => {
         if (!err) {
           resolve(response);

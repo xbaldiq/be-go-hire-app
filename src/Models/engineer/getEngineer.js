@@ -73,12 +73,11 @@ module.exports = {
     });
   },
   getOneEngineer: params => {
-    const idEngineer = params.id;
     return new Promise((resolve, reject) => {
       let sql = `
         SELECT *
         FROM engineer
-        WHERE id=${idEngineer}
+        WHERE id=${params.id}
         `;
       db.query(sql, (err, response) => {
         if (!err) {
