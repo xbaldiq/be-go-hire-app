@@ -23,20 +23,8 @@ module.exports = {
   getAllEngineer: (req, res) => {
     const { params, query, user } = req;
     if (user.user_type == 'company') {
-      // utilPagination.pagination().then(response =>{
-      //   console.log(response)
-      // }).catch(err => form.failed(response))
 
-      // getEng
-      //   .getAllEngineer(params, query)
-      //   .then(response => {
-      //     form.success(res, response);
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //   });
-
-      let p1 = utilPagination.pagination();
+      let p1 = utilPagination.pagination(query);
       let p2 = getEng.getAllEngineer(params, query);
 
       Promise.all([p1, p2])

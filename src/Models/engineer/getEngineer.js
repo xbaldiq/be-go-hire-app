@@ -49,6 +49,7 @@ module.exports = {
 
       db.query(sql, (err, response) => {
         if (!err) {
+          // console.log(response)
           resolve(response);
         } else {
           reject(err);
