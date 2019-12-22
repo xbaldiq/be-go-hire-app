@@ -6,6 +6,7 @@ module.exports = {
       const sql = 'UPDATE engineer SET ?, dateupdated=NOW() WHERE id=?';
       db.query(sql, [body, userId], (err, response) => {
         if (!err) {
+          response.msg = `User ID: ${userId} updated`
           resolve(response);
         } else {
           reject(err);

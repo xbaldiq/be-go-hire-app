@@ -9,6 +9,7 @@ module.exports = {
       console.log(value);
       db.query(sql, [value], (err, response) => {
         if (!err) {
+          response.msg = `Comapny ID: ${body.id} Inserted`
           resolve(response);
         } else {
           reject(err);

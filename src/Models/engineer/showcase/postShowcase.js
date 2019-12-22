@@ -7,6 +7,7 @@ module.exports = {
       console.log(sql);
       db.query(sql, (err, response) => {
         if (!err) {
+          response.msg = `UserID ${userId} showcase inserted`
           resolve(response);
         } else {
           reject(err);

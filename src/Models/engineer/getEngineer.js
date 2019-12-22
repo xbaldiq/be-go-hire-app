@@ -7,20 +7,13 @@ module.exports = {
 
     const sort = query.sort || 'id';
     const order = query.order || 'asc';
-    const limit = query.limit || 50;
+    const limit = query.limit || 5;
     const page = query.page || 1;
 
     let offset = limit * page - limit;
-    
-    // const filterName = 'name';
-    // const filterNameVal = query.name || '';
-    // const filterLocVal = query.location || '';
-    // const filterSkillVal = query.skill || '';
 
-    let keyFilter = 0;
+    // Set Query filter
     let queryString = ''
-    let testing_query = "WHERE 1"
-    // console.log('query : ', query)
     if (query.name) {
       filter1 = 'name';
       // filter1Val = query.name;
@@ -34,11 +27,6 @@ module.exports = {
         queryString = `WHERE skill_item LIKE '%${query.skill}%'`
       }
     }
-    // if (query.skill) {
-    //   keyFilter++
-    //   filterSkill = 'skill_item';
-    //   filterSkillVal = query.skill;
-    // }
 
     return new Promise((resolve, reject) => {
       let sql = `
@@ -59,12 +47,8 @@ module.exports = {
           OFFSET ${offset}
           `;
 
-      // console.log('query sql: ', sql);
-
       db.query(sql, (err, response) => {
         if (!err) {
-          // console.log('mendapatkan response')
-          // console.log(response)
           resolve(response);
         } else {
           reject(err);
@@ -87,5 +71,8 @@ module.exports = {
         }
       });
     });
-  }
+  },
+  // getTotalData: params => {
+  //   return new Promise((reqso))
+  // }
 };

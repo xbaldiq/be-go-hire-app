@@ -7,6 +7,7 @@ module.exports = {
 
       db.query(sql, (err, response) => {
         if (!err) {
+          response.msg = `User ID: ${userId} skill_no: ${body.showcase_no} is deleted`
           resolve(response);
         } else {
           reject(err);

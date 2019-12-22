@@ -6,6 +6,7 @@ module.exports = {
       console.log(sql);
       db.query(sql, (err, response) => {
         if (!err) {
+          response.msg = `Showcase User ID: ${userId} showcase_no: ${body.showcase_no} updated`
           resolve(response);
         } else {
           reject(err);

@@ -24,6 +24,7 @@ module.exports = {
             // Check password
             if (bcrypt.compareSync(password, dbPassword)) {
               console.log('Authentication Success');
+              console.log(response[0].id)
               const payload = { 
                 id: response[0].id,
                 name: username,

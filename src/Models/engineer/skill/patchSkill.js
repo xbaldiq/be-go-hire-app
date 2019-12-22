@@ -6,6 +6,7 @@ module.exports = {
 
       db.query(sql, (err, response) => {
         if (!err) {
+          `User ID: ${userId} Skill: ${body.showcase_no} updated`
           resolve(response);
         } else {
           reject(err);

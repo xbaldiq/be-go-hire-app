@@ -1,16 +1,26 @@
 module.exports = {
-  success: (res, data, status=200, msg='success') => {
+  success: (res, data, status = 200, msg = 'success') => {
     res.json({
       status,
       msg,
       data
     });
   },
-  failed: (res, data, status=400, msg='failed') => {
+  failed: (res, data, status = 400, msg = 'failed') => {
     res.status(status).json({
       status,
       msg,
       data
+    });
+  },
+  noResult: msg => {
+    res.status(204).json({
+      msg
+    });
+  },
+  notAccepted: msg => {
+    res.status(200).json({
+      msg
     });
   },
   usernameExist: res => {

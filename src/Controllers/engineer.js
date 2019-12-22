@@ -14,30 +14,51 @@ const patchEngSC = require('../Models/engineer/showcase/patchShowcase');
 const postEngSC = require('../Models/engineer/showcase/postShowcase');
 const delEngSC = require('../Models/engineer/showcase/deleteShowcase');
 
+// utils
+const utilPagination = require('../Models/utility/pagination');
+
 const form = require('../Helpers/form');
 
 module.exports = {
   getAllEngineer: (req, res) => {
     const { params, query, user } = req;
-    if( user.user_type == 'company' ){
-      getEng
-      .getAllEngineer(params, query)
-      .then(response => {
-        form.success(res, response);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    if (user.user_type == 'company') {
+      // utilPagination.pagination().then(response =>{
+      //   console.log(response)
+      // }).catch(err => form.failed(response))
+
+      // getEng
+      //   .getAllEngineer(params, query)
+      //   .then(response => {
+      //     form.success(res, response);
+      //   })
+      //   .catch(err => {
+      //     console.log(err);
+      //   });
+
+      let p1 = utilPagination.pagination();
+      let p2 = getEng.getAllEngineer(params, query);
+
+      Promise.all([p1, p2])
+        .then(result => {
+          res.json(result);
+        })
+        .catch(error => {
+          res.json(error);
+        });
     } else if (user.user_type == 'engineer') {
-      console.log('userId',user.id)
+      console.log('userId', user.id);
       getEng
-      .getAllEngineer(params, query)
-      .then(response => {
-        form.success(res, response.filter(result => result.id === req.user.id));
-      })
-      .catch(err => {
-        console.log(err);
-      });
+        .getAllEngineer(params, query)
+        .then(response => {
+          form.success(
+            res,
+            response.filter(result => result.id === req.user.id)
+          );
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   getEngineer: (req, res) => {
@@ -67,42 +88,40 @@ module.exports = {
         };
         form.success(res, data);
       })
-      .catch(err =>
-        console.log(err)
-      );
+      .catch(err => console.log(err));
   },
   patchEngineer: (req, res) => {
     const { body, user } = req;
-    console.log('userId', user.id)
+    console.log('userId', user.id);
     patchEng
       .patchEngineer(body, req.user.id)
       .then(response => {
         res.json(response);
       })
-      .catch(err =>
-        console.log(err)
-      );
+      .catch(err => console.log(err));
   },
   deleteEngineer: (req, res) => {
+    // console.log(req.params)
     delEng
       .deleteEngineer(req.params)
       .then(response => {
         res.json(response);
       })
-      .catch(err =>
-        console.log(err)
-      );
+      .catch(err => console.log(err));
   },
   postEngineerSkill: (req, res) => {
     const { body } = req;
     postEngSkill
       .postEngineerSkill(body, req.user.id)
       .then(response => {
-        form.success(res,response.insert = body, 200,'Success Insert Skill');
+        form.success(
+          res,
+          (response.insert = body),
+          200,
+          'Success Insert Skill'
+        );
       })
-      .catch(err =>
-        console.log(err)
-      );
+      .catch(err => console.log(err));
   },
   patchEngineerSkill: (req, res) => {
     const { body } = req;
@@ -111,19 +130,16 @@ module.exports = {
       .then(response => {
         res.json(response);
       })
-      .catch(err =>
-        console.log(err)
-      );
+      .catch(err => console.log(err));
   },
   deleteEngineerSkill: (req, res) => {
+    console.log();
     delEngSkill
       .deleteEngineerSkill(req.body, req.user.id)
       .then(response => {
         res.json(response);
       })
-      .catch(err =>
-        console.log(err)
-      );
+      .catch(err => console.log(err));
   },
   postEngineerShowcase: (req, res) => {
     const { body } = req;
@@ -132,21 +148,17 @@ module.exports = {
       .then(response => {
         res.json(response);
       })
-      .catch(err =>
-        console.log(err)
-      );
+      .catch(err => console.log(err));
   },
   patchEngineerShowcase: (req, res) => {
     const { body } = req;
-    console.log(body)
+    console.log(body);
     patchEngSC
       .patchEngineerShowcase(body, req.user.id)
       .then(response => {
         res.json(response);
       })
-      .catch(err =>
-        console.log(err)
-      );
+      .catch(err => console.log(err));
   },
   deleteEngineerShowcase: (req, res) => {
     delEngSC
@@ -154,8 +166,6 @@ module.exports = {
       .then(response => {
         res.json(response);
       })
-      .catch(err =>
-        console.log(err)
-      );
+      .catch(err => console.log(err));
   }
 };
