@@ -24,7 +24,7 @@ module.exports = {
     const { params, query, user } = req;
     if (user.user_type == 'company') {
 
-      let p1 = utilPagination.pagination(query);
+      let p1 = utilPagination.paginationEngineer(query);
       let p2 = getEng.getAllEngineer(params, query);
 
       Promise.all([p1, p2])
