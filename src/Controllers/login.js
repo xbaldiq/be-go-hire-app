@@ -9,6 +9,10 @@ module.exports = {
         if(response.invalidPassword){
           form.invalidPassword(res)
         }
+        else if(response.invalidUsername){
+          
+          form.invalidUsername(res)
+        }
         else{
           form.success(res, response);
         }

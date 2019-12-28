@@ -2,6 +2,7 @@ const del = require('../Models/company/deleteCompany');
 const get = require('../Models/company/getCompany');
 const patch = require('../Models/company/patchCompany');
 const post = require('../Models/company/postCompany');
+const getProject = require('../Models/company/getProject');
 // const model = require('../Models/companyBackup');
 const form = require('../Helpers/form');
 
@@ -15,6 +16,27 @@ module.exports = {
       })
       .catch(err => {
         //reject
+        console.log(err);
+      });
+  },
+  getProject: (_, res) => {
+    getProject
+      .getProject()
+      .then(response => {
+        form.success(res, response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  assignProject: (req, res) => {
+    const { body } = req;
+    getProject
+      .assignProject(body)
+      .then(response => {
+        form.success(res, response);
+      })
+      .catch(err => {
         console.log(err);
       });
   },

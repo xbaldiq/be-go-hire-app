@@ -14,7 +14,7 @@ module.exports = {
       let sql = `SELECT * FROM user WHERE username = '${username}' AND user_type= '${user_type}'`;
 
       db.query(sql, (err, response) => {
-        console.log(response)
+        // console.log(response)
         if (!err) {
           if (response.length) {
             console.log(response)
@@ -54,7 +54,8 @@ module.exports = {
               resolve(response);
             }
           }else{
-            resolve(response.invalidUsername = 'Username not registered');
+            response.invalidUsername = 'Username not registered'
+            resolve(response);
           }
         } else {
           resolve(err);

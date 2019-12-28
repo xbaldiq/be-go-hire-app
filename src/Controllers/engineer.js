@@ -23,7 +23,6 @@ module.exports = {
   getAllEngineer: (req, res) => {
     const { params, query, user } = req;
     if (user.user_type == 'company') {
-
       let p1 = utilPagination.paginationEngineer(query);
       let p2 = getEng.getAllEngineer(params, query);
 
@@ -37,7 +36,7 @@ module.exports = {
     } else if (user.user_type == 'engineer') {
       console.log('userId', user.id);
       getEng
-        .getAllEngineer(params, query)
+        .getOneEngineer(user.id)
         .then(response => {
           form.success(
             res,
