@@ -16,7 +16,7 @@ module.exports = {
       }
 
       const sql = `
-        SELECT count(engineer.id) as total_data 
+        SELECT count(DISTINCT engineer.id) as total_data 
         FROM engineer
         LEFT JOIN skill
             ON engineer.id = skill.id
@@ -27,7 +27,6 @@ module.exports = {
       db.query(sql, (err, result) => {
         if (!err) {
           const total_page = Math.ceil(result[0].total_data / limit);
-          console.log('total_page ', total_page);
           const current_page = query.page || 1;
           const next_page = total_page - current_page;
           const prev_page = total_page - 1 - next_page;
