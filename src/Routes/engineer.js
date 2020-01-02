@@ -10,12 +10,17 @@ Router.post('/', controller.postEngineer);
 Router.patch('/', jwtAuth.authEngineerCRUD, controller.patchEngineer);
 Router.delete('/:id', controller.deleteEngineer);
 
+Router.get('/skill', jwtAuth.authEngineerCRUD,controller.getEngineerSkill);
 Router.post('/skill', jwtAuth.authEngineerCRUD,controller.postEngineerSkill);
 Router.patch('/skill', jwtAuth.authEngineerCRUD, controller.patchEngineerSkill);
 Router.delete('/skill', jwtAuth.authEngineerCRUD, controller.deleteEngineerSkill);
 
-Router.post('/showcase', jwtAuth.authEngineerCRUD,controller.postEngineerShowcase);
+Router.post('/showcase', jwtAuth.authEngineerCRUD, controller.postEngineerShowcase);
 Router.patch('/showcase', jwtAuth.authEngineerCRUD, controller.patchEngineerShowcase);
 Router.delete('/showcase', jwtAuth.authEngineerCRUD, controller.deleteEngineerShowcase);
+
+// Project
+Router.get('/project', controller.getEngineerProject);
+Router.patch('/project', controller.patchEngineerStatusProject);
 
 module.exports = Router;

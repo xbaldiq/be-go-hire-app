@@ -2,7 +2,7 @@ const del = require('../Models/company/deleteCompany');
 const get = require('../Models/company/getCompany');
 const patch = require('../Models/company/patchCompany');
 const post = require('../Models/company/postCompany');
-const getProject = require('../Models/company/getProject');
+const getProject = require('../Models/company/project/handleProject');
 // const model = require('../Models/companyBackup');
 const form = require('../Helpers/form');
 

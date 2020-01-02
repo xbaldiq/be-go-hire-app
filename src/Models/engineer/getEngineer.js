@@ -73,27 +73,34 @@ module.exports = {
   },
   getOneEngineer: params => {
     return new Promise((resolve, reject) => {
-      console.log(params);
       let sql = `
         SELECT
             engineer.id,
             engineer.name,
+            engineer.description,
+            engineer.location,
+            DATE_FORMAT(engineer.dateofbirth,'%d-%m-%Y') AS dateofbirth,
+            DATE_FORMAT(engineer.datecreated, '%d/%m/%Y %H:%i') AS datecreated,
+            DATE_FORMAT(engineer.dateupdated, '%d/%m/%Y %H:%i') AS dateupdated,
             GROUP_CONCAT(DISTINCT skill.skill_item SEPARATOR ', ') AS skill,
             GROUP_CONCAT(DISTINCT showcase.showcase_item SEPARATOR ', ') AS showcase,
-            (SELECT COUNT(engineer_acc.id) FROM engineer_acc WHERE engineer_acc.id=engineer.id GROUP BY engineer_acc.id) AS total_project,
-            ROUND(SUM(engineer_acc.accept=1)*100/COUNT(engineer_acc.id)) AS successrate
+            (SELECT COUNT(project_assignment.id_engineer) FROM project_assignment WHERE project_assignment.id_engineer=engineer.id GROUP BY project_assignment.id_engineer) AS total_project,
+            ROUND(SUM(project_assignment.status_project='success' OR project_assignment.status_project='ongoing' OR project_assignment.status_project='pending' )*100/COUNT(project_assignment.id_engineer)) AS successrate
         FROM engineer
         LEFT JOIN skill
             ON engineer.id = skill.id
         LEFT JOIN showcase
             ON engineer.id = showcase.id
-        LEFT JOIN engineer_acc
-            ON engineer.id = engineer_acc.id
+        LEFT JOIN project_assignment
+            ON engineer.id = project_assignment.id_engineer
         WHERE engineer.id=${params}
         `;
+
+      // console.log(sql)
       db.query(sql, (err, response) => {
+        console.log(response);
         if (!err) {
-          resolve(response);
+          resolve(response[0]);
         } else {
           reject(err);
         }

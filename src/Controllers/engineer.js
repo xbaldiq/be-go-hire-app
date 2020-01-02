@@ -5,6 +5,8 @@ const patchEng = require('../Models/engineer/patchEngineer');
 const postEng = require('../Models/engineer/postEngineer');
 
 // Skill
+
+const getEngSkill = require('../Models/engineer/skill/getskill');
 const patchEngSkill = require('../Models/engineer/skill/patchSkill');
 const postEngSkill = require('../Models/engineer/skill/postSkill');
 const delEngSkill = require('../Models/engineer/skill/deleteSkill');
@@ -16,6 +18,9 @@ const delEngSC = require('../Models/engineer/showcase/deleteShowcase');
 
 // utils
 const utilPagination = require('../Models/utility/pagination');
+
+// Project
+const handleProject = require('../Models/engineer/project/handleProject');
 
 const form = require('../Helpers/form');
 
@@ -40,7 +45,8 @@ module.exports = {
         .then(response => {
           form.success(
             res,
-            response.filter(result => result.id === req.user.id)
+            // response.filter(result => result.id === req.user.id)
+            response
           );
         })
         .catch(err => {
@@ -154,5 +160,35 @@ module.exports = {
         res.json(response);
       })
       .catch(err => console.log(err));
+  },
+  getEngineerProject: (req,res) => {
+    // console.log(req)
+    console.log(req.query)
+    handleProject
+      .getEngineerProject(req.query)
+      .then(response => {
+        res.json(response)
+      })
+      .catch(err => console.log(err));
+  },
+  patchEngineerStatusProject: (req,res) => {
+    // console.log(req)
+    const { id, name_project, status_project } = req.query
+    console.log(id, name_project,status_project )
+    handleProject
+      .patchEngineerStatusProject(id,name_project,status_project)
+      .then(response => {
+        res.json(response)
+      })
+      .catch(err => console.log(err));
+  },
+  getEngineerSkill: (req, res) => {
+    getEngSkill
+      .getEngineerSkill(req.user.id)
+      .then(response => {
+        res.json(response);
+      })
+      .catch(err => console.log(err));
   }
+
 };
