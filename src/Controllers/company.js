@@ -2,7 +2,7 @@ const del = require('../Models/company/deleteCompany');
 const get = require('../Models/company/getCompany');
 const patch = require('../Models/company/patchCompany');
 const post = require('../Models/company/postCompany');
-const getProject = require('../Models/company/project/handleProject');
+const project = require('../Models/company/project/handleProject');
 // const model = require('../Models/companyBackup');
 const form = require('../Helpers/form');
 
@@ -20,7 +20,7 @@ module.exports = {
       });
   },
   getProject: (_, res) => {
-    getProject
+    project
       .getProject()
       .then(response => {
         form.success(res, response);
@@ -31,8 +31,31 @@ module.exports = {
   },
   assignProject: (req, res) => {
     const { body } = req;
-    getProject
+    project
       .assignProject(body)
+      .then(response => {
+        form.success(res, response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  getAssignedProject: (req, res) => {
+    const { body } = req;
+    project
+      .getAssignedProject(body,req.user.id)
+      .then(response => {
+        form.success(res, response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  createProject: (req, res) => {
+    console.log('body:-------------', req.body)
+    const { body } = req;
+    project
+      .createProject(body,req.user.id)
       .then(response => {
         form.success(res, response);
       })

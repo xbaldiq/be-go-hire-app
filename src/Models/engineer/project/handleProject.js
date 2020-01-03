@@ -7,8 +7,9 @@ module.exports = {
         FROM project_assignment AS PA 
         LEFT JOIN company 
         ON PA.id_company = company.id
-        WHERE id_engineer=${params.id}`
-
+        WHERE id_engineer=${params.id}
+        ORDER BY PA.no ASC
+        `
         console.log(sql)
         
       db.query(sql, (err, response) => {
