@@ -1,9 +1,9 @@
 const db = require('../../../Configs/db');
 
 module.exports = {
-  getProject: () => {
+  getProject: companyId => {
     return new Promise((resolve, reject) => {
-      db.query('SELECT * FROM project_list', (err, response) => {
+      db.query(`SELECT * FROM project_list where id_company=${companyId}`, (err, response) => {
         if (!err) {
           resolve(response);
         } else {

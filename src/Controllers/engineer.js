@@ -126,9 +126,9 @@ module.exports = {
       .catch(err => console.log(err));
   },
   deleteEngineerSkill: (req, res) => {
-    console.log();
+    // console.log('params', req.params);
     delEngSkill
-      .deleteEngineerSkill(req.body, req.user.id)
+      .deleteEngineerSkill(req.query, req.user.id)
       .then(response => {
         res.json(response);
       })

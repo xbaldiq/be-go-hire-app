@@ -19,9 +19,9 @@ module.exports = {
         console.log(err);
       });
   },
-  getProject: (_, res) => {
+  getProject: (req, res) => {
     project
-      .getProject()
+      .getProject(req.user.id)
       .then(response => {
         form.success(res, response);
       })
@@ -41,9 +41,8 @@ module.exports = {
       });
   },
   getAssignedProject: (req, res) => {
-    const { body } = req;
     project
-      .getAssignedProject(body,req.user.id)
+      .getAssignedProject(req.user.id)
       .then(response => {
         form.success(res, response);
       })
@@ -52,7 +51,6 @@ module.exports = {
       });
   },
   createProject: (req, res) => {
-    console.log('body:-------------', req.body)
     const { body } = req;
     project
       .createProject(body,req.user.id)
