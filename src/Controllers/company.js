@@ -19,6 +19,18 @@ module.exports = {
         console.log(err);
       });
   },
+  getOneCompany: (req, res) => {
+    get
+      .getOneCompany(req.user.id)
+      .then(response => {
+        //resolve
+        form.success(res, response);
+      })
+      .catch(err => {
+        //reject
+        console.log(err);
+      });
+  },
   getProject: (req, res) => {
     project
       .getProject(req.user.id)
@@ -83,9 +95,9 @@ module.exports = {
       );
   },
   patchCompany: (req, res) => {
-    const { params, body } = req;
+    const { body } = req;
     patch
-      .patchCompany(body, params)
+      .patchCompany(body, {id:req.user.id})
       .then(response => {
         res.json(response);
       })

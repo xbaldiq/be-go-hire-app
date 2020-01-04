@@ -30,7 +30,6 @@ module.exports = {
     if (user.user_type == 'company') {
       let p1 = utilPagination.paginationEngineer(query);
       let p2 = getEng.getAllEngineer(params, query);
-
       Promise.all([p1, p2])
         .then(result => {
           res.json(result);

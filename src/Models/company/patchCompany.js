@@ -9,7 +9,7 @@ module.exports = {
         (err, response) => {
           if (!err) {
             console.log(body)
-            response.changedRows > 0 ? response.msg = `Company ID: ${params.id} is updated` : response.msg = `Company ID: ${params.id} is not updated`
+            response.changedRows > 0 ? response.msg = `Company ID: ${params} is updated` : response.msg = `Company ID: ${params.id} is not updated`
             resolve(response);
           } else {
             reject(err);
