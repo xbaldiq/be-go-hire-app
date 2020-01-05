@@ -6,7 +6,7 @@ const postEng = require('../Models/engineer/postEngineer');
 
 // Skill
 
-const getEngSkill = require('../Models/engineer/skill/getskill');
+const getEngSkill = require('../Models/engineer/skill/getSkill');
 const patchEngSkill = require('../Models/engineer/skill/patchSkill');
 const postEngSkill = require('../Models/engineer/skill/postSkill');
 const delEngSkill = require('../Models/engineer/skill/deleteSkill');
