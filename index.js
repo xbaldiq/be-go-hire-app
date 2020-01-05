@@ -11,7 +11,7 @@ const index = express();
 const PORT = 8000;
 
 // Setting Middleware
-index.use (logger ('dev'));
+// index.use (logger ('dev'));
 index.use (helmet.xssFilter ()); //cross server scripting
 index.use (cors ()); //manage cors, menentukan situs mana yang boleh akses, situs yang mana yang di blacklist
 index.use (bodyParser.json ());
