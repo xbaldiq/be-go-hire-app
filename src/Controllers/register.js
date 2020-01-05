@@ -6,9 +6,9 @@ module.exports = {
     model
       .registerUser(body, params)
       .then(response => {
-        if(response == 'loginInvalidFormat'){
+        if(response == 'registerInvalidFormat'){
           console.log(response)
-          form.failed(res, response, 400);
+          form.invalidFormatRegister(res, response, 400);
         } 
         else if(response == 403){
           form.usernameExist(res)

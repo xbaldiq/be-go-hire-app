@@ -26,7 +26,11 @@ module.exports = {
   },
   getAssignedProject: companyId => {
     return new Promise((resolve, reject) => {
-        const sql = `SELECT project_assignment.no, engineer.name AS engineer, company.name AS company, project_assignment.name_project, status_project FROM project_assignment JOIN engineer ON project_assignment.id_engineer = engineer.id JOIN company ON project_assignment.id_company = company.id WHERE id_company=${companyId} ORDER BY project_assignment.no ASC`;
+        const sql = `SELECT project_assignment.no, engineer.name AS engineer, company.name AS company, project_assignment.name_project, status_project 
+        FROM project_assignment 
+        JOIN engineer ON project_assignment.id_engineer = engineer.id 
+        JOIN company ON project_assignment.id_company = company.id 
+        WHERE id_company=${companyId} ORDER BY project_assignment.no ASC`;
       db.query(sql, (err, response) => {
         console.log(sql)
         if (!err) {

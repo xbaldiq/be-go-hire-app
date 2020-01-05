@@ -12,7 +12,7 @@ module.exports = {
           password
         );
         if (resultUsername == false || resultPassword == false) {
-          resolve((msg = 'loginInvalidFormat'));
+          resolve((msg = 'registerInvalidFormat'));
         }
 
         const checkUser = await validation

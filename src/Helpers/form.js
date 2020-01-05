@@ -13,6 +13,9 @@ module.exports = {
       data
     });
   },
+  invalidFormatRegister: res => {
+    res.status(422).send({ msg: 'Username and password must have at least 5 character and ONE number' });
+  },
   noResult: msg => {
     res.status(204).json({
       msg
@@ -24,7 +27,7 @@ module.exports = {
     });
   },
   usernameExist: res => {
-    res.status(403).send({ msg: 'Username Already Exist' });
+    res.status(403).json({ msg: 'Username Already Exist' });
   },
   invalidPassword: res => {
     res.status(422).send({ msg: 'Invalid Password' });
