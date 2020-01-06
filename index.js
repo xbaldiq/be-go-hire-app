@@ -8,7 +8,7 @@ const bodyParser = require ('body-parser');
 // init router & port
 const router = require('./src/Routes/index')
 const index = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 // Setting Middleware
 // index.use (logger ('dev'));
