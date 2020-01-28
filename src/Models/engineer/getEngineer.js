@@ -27,10 +27,16 @@ module.exports = {
           SELECT
           engineer.id,
           engineer.name,
+          engineer.description,
+          engineer.about,
+          engineer.location,
+          engineer.dateofbirth,
+          engineer.datecreated,
+          engineer.dateupdated,
           GROUP_CONCAT(DISTINCT skill.skill_item SEPARATOR ', ') AS skill,
           GROUP_CONCAT(DISTINCT showcase.showcase_item SEPARATOR ', ') AS showcase,
-          (SELECT COUNT(engineer_acc.id) FROM engineer_acc WHERE engineer_acc.id=engineer.id GROUP BY engineer_acc.id) AS total_project,
-          ROUND(SUM(engineer_acc.accept=1)*100/COUNT(engineer_acc.id)) AS successrate
+          (SELECT COUNT(project_assignment.id_engineer) FROM project_assignment WHERE project_assignment.id_engineer=engineer.id GROUP BY project_assignment.id_engineer) AS total_project,
+          ROUND(SUM(project_assignment.status_project='success' OR project_assignment.status_project='ongoing' OR project_assignment.status_project='pending' )*100/COUNT(project_assignment.id_engineer)) AS successrate
       FROM engineer
       LEFT JOIN skill
           ON engineer.id = skill.id
@@ -38,6 +44,8 @@ module.exports = {
           ON engineer.id = showcase.id
       LEFT JOIN engineer_acc
           ON engineer.id = engineer_acc.id
+      LEFT JOIN project_assignment
+          ON engineer.id = project_assignment.id_engineer
           ${queryString}
       GROUP BY id
       ORDER BY ${sort} ${order}
