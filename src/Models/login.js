@@ -23,7 +23,7 @@ module.exports = {
         engineer.dateofbirth, 
         engineer.datecreated, 
         engineer.dateupdated 
-        FROM USER 
+        FROM user 
         JOIN engineer
         ON engineer.id = user.id WHERE username = '${username}' AND user_type= '${user_type}'`;
       } else {
@@ -33,7 +33,7 @@ module.exports = {
         user.username, 
         user.password, 
         company.name
-        FROM USER 
+        FROM user 
         JOIN company
         ON company.id = user.id
         WHERE username = '${username}' AND user_type= '${user_type}'`;
